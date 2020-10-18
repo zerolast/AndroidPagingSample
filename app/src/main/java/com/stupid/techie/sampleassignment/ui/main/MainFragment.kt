@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stupid.techie.sampleassignment.R
+import androidx.recyclerview.widget.DividerItemDecoration
 
 class MainFragment : Fragment() {
 
@@ -38,7 +39,7 @@ class MainFragment : Fragment() {
         viewModel =
             ViewModelProvider(this, BaseViewModelFactory()).get(ArticleViewModel::class.java)
         initAdapter()
-        initState()
+       // initState()
     }
 
 
@@ -50,6 +51,12 @@ class MainFragment : Fragment() {
         viewModel.articleList.observe(viewLifecycleOwner, Observer {
             articleListAdapter.submitList(it)
         })
+
+        val dividerItemDecoration = DividerItemDecoration(
+            articleRecyclerView.context,
+            RecyclerView.VERTICAL
+        )
+        articleRecyclerView.addItemDecoration(dividerItemDecoration)
     }
 
     private fun initState() {

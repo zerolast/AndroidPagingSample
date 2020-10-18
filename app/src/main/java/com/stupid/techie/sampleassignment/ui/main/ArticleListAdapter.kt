@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.stupid.techie.sampleassignment.R
+import com.stupid.techie.sampleassignment.Utils.DateUtils
 import com.stupid.techie.sampleassignment.model.Article
 
 
@@ -61,11 +62,14 @@ class ArticleListAdapter
         lateinit var title: TextView
         lateinit var url: TextView
 
+        lateinit var textViewDuration: TextView
+
 
         fun bind(articles: Article?) {
             if (articles != null) {
                 userName = itemView.findViewById(R.id.textViewUserName) as TextView
                 userDesgination = itemView.findViewById(R.id.textViewUserDesignation) as TextView
+                textViewDuration = itemView.findViewById(R.id.textViewDuration) as TextView
 
                 comment = itemView.findViewById(R.id.textViewComments) as TextView
                 likes = itemView.findViewById(R.id.textViewLikes) as TextView
@@ -84,7 +88,9 @@ class ArticleListAdapter
 
                 content.text = articles.content
 
-                if (articles.media == null){
+                textViewDuration.text = DateUtils.printDifference(articles.createdAt)
+
+                if (articles.media == null || articles.media.isEmpty()){
                     articleImage.visibility = View.GONE
                     title.visibility = View.GONE
                     url.visibility = View.GONE
@@ -94,16 +100,18 @@ class ArticleListAdapter
                     title.visibility = View.VISIBLE
                     url.visibility = View.VISIBLE
 
-                    articles.media?.let {
+                    articles.media.let {
+                        if(it.isNotEmpty())
                         title.text = it[0].title
                     }
 
-                    articles.media?.let {
+                    articles.media.let {
+                        if(it.isNotEmpty())
                         url.text = it[0].url
-                        url.setTextColor(R.color.colorPrimary)
                     }
 
                     articles.media?.let {
+                        if(it.isNotEmpty())
                         Picasso.get().load(it[0].image).into(articleImage)
                     }
 
