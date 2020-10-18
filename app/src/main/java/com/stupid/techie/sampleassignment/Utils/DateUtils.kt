@@ -41,10 +41,6 @@ class DateUtils {
 
             val elapsedSeconds = different / secondsInMilli
 
-            System.out.printf(
-                "%d days, %d hours, %d minutes, %d seconds%n",
-                elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds
-            )
             var result = ""
             if (elapsedDays > 0)
                 result = "$elapsedDays days"

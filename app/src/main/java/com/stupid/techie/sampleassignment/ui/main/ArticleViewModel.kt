@@ -1,7 +1,6 @@
 package com.stupid.techie.sampleassignment.ui.main
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
@@ -13,9 +12,10 @@ import com.stupid.techie.sampleassignment.ui.main.paging.ArticleDataSourceFactor
 
 class ArticleViewModel : ViewModel() {
 
-    var articleList : LiveData<PagedList<Article>>
-    private val pageSize = 5
-    val articleDataSourceFactory : ArticleDataSourceFactory
+    var articleList: LiveData<PagedList<Article>>
+    private val pageSize = 10
+    val articleDataSourceFactory: ArticleDataSourceFactory
+
     init {
 
         articleDataSourceFactory = ArticleDataSourceFactory(RemoteAPIClient.getArticleService())

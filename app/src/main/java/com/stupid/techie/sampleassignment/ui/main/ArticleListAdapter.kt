@@ -17,8 +17,6 @@ import com.stupid.techie.sampleassignment.model.Article
 class ArticleListAdapter
     : PagedListAdapter<Article, RecyclerView.ViewHolder>(ArticleDiffCallback) {
 
-    private var state = State.LOADING
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ArticleViewHolder.create(parent)
     }
@@ -41,12 +39,6 @@ class ArticleListAdapter
                 return oldItem == newItem
             }
         }
-    }
-
-
-    fun setState(state: State) {
-        this.state = state
-        notifyItemChanged(super.getItemCount())
     }
 
     class ArticleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -83,36 +75,38 @@ class ArticleListAdapter
                 userName.text = articles.user.get(0).name
                 userDesgination.text = articles.user.get(0).designation
 
-                likes.text = articles.likes.toString() + " Likes"
-                comment.text = articles.comments.toString() + " Comments"
+                val resources = itemView.resources
+                likes.text =
+                    String.format(resources.getString(R.string.count_likes), articles.likes)
+                comment.text =
+                    String.format(resources.getString(R.string.count_comments), articles.comments)
 
                 content.text = articles.content
-
                 textViewDuration.text = DateUtils.printDifference(articles.createdAt)
 
-                if (articles.media == null || articles.media.isEmpty()){
+                if (articles.media == null || articles.media.isEmpty()) {
                     articleImage.visibility = View.GONE
                     title.visibility = View.GONE
                     url.visibility = View.GONE
-                }else{
+                } else {
 
                     articleImage.visibility = View.VISIBLE
                     title.visibility = View.VISIBLE
                     url.visibility = View.VISIBLE
 
                     articles.media.let {
-                        if(it.isNotEmpty())
-                        title.text = it[0].title
+                        if (it.isNotEmpty())
+                            title.text = it[0].title
                     }
 
                     articles.media.let {
-                        if(it.isNotEmpty())
-                        url.text = it[0].url
+                        if (it.isNotEmpty())
+                            url.text = it[0].url
                     }
 
                     articles.media?.let {
-                        if(it.isNotEmpty())
-                        Picasso.get().load(it[0].image).into(articleImage)
+                        if (it.isNotEmpty())
+                            Picasso.get().load(it[0].image).into(articleImage)
                     }
 
                 }

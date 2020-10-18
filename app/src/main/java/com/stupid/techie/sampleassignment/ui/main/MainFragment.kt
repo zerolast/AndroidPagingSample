@@ -8,10 +8,10 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stupid.techie.sampleassignment.R
-import androidx.recyclerview.widget.DividerItemDecoration
 
 class MainFragment : Fragment() {
 
@@ -28,8 +28,8 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val root =  inflater.inflate(R.layout.main_fragment, container, false)
-        articleRecyclerView =root.findViewById(R.id.recycler_view)
+        val root = inflater.inflate(R.layout.main_fragment, container, false)
+        articleRecyclerView = root.findViewById(R.id.recycler_view)
         progress_bar = root.findViewById(R.id.progress_bar)
         return root
     }
@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
         viewModel =
             ViewModelProvider(this, BaseViewModelFactory()).get(ArticleViewModel::class.java)
         initAdapter()
-       // initState()
+        initState()
     }
 
 
@@ -61,10 +61,8 @@ class MainFragment : Fragment() {
 
     private fun initState() {
         viewModel.getState().observe(viewLifecycleOwner, Observer { state ->
-            progress_bar.visibility = if (viewModel.listIsEmpty() && state == State.LOADING) View.VISIBLE else View.GONE
-            /*if (!viewModel.listIsEmpty()) {
-                newsListAdapter.setState(state ?: State.DONE)
-            }*/
+            progress_bar.visibility =
+                if (viewModel.listIsEmpty() && state == State.LOADING) View.VISIBLE else View.GONE
         })
     }
 

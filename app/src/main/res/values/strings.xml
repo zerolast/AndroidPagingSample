@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">SampleAssignment</string>
+    <string name="app_name">Articles</string>
+    <string name="count_likes">%1$s Likes</string>
+    <string name="count_comments">%1$s Comments</string>
 </resources>
