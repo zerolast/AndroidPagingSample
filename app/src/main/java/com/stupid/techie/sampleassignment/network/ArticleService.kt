@@ -1,12 +1,13 @@
 package com.stupid.techie.sampleassignment.network
 
-import okhttp3.ResponseBody
+import com.stupid.techie.sampleassignment.model.Article
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ArticleService {
 
-    @GET("/blogs?page=1&limit=10")
-    fun getArticles(): Call<ResponseBody>
+    @GET("/blogs")
+    fun getArticles(@Query("page") page: Int, @Query("limit") limit: Int): Call<List<Article>>
 
 }
